@@ -164,14 +164,42 @@ import { test, expect } from '@playwright/test';
 
 
 
-test('Verify doubleclcik ', async ({ page }) => {
-  await page.goto('https://vinothqaacademy.com/mouse-event/');
-  await page.getByRole('button', { name: 'Double Click Me' }).dblclick();
-  await expect(page.getByText('Double Click Detected ✅')).toBeVisible();
-  await page.pause();
+// test('Verify doubleclcik ', async ({ page }) => {
+//   await page.goto('https://vinothqaacademy.com/mouse-event/');
+//   await page.getByRole('button', { name: 'Double Click Me' }).dblclick();
+//   await expect(page.getByText('Double Click Detected ✅')).toBeVisible();
+//   await page.pause();
  
 
+// }
+// )
+
+// test('Verify Login using enter key',async({page})=>
+// {
+// await page.goto('https://www.saucedemo.com/');
+// await page.getByPlaceholder('Username').fill('standard_user');
+// const password= page.getByPlaceholder('Password');
+// await password.fill('secret_sauce');
+// await password.press('Enter');
+// await expect(page.getByText('Swag Labs')).toBeVisible();
+// await page.pause();
+// }
+// );
+
+
+
+
+test('Verify Login using enter key',async({page})=>
+{
+await page.goto('https://www.saucedemo.com/');
+await page.getByPlaceholder('Username').fill('standard_user');
+const password= page.getByPlaceholder('Password');
+await password.fill('secret_sauce');
+await password.press('Enter');
+await expect(page.getByText('Swag Labs')).toBeVisible();
+await page.pause();
 }
-)
+);
+
 
 
