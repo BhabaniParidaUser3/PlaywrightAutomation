@@ -254,8 +254,7 @@ test('Verify native dropdown selection when multiple dropdown present in a singl
     await page.goto('https://testautomationpractice.blogspot.com/?utm_source=chatgpt.com');
     const dropdown=page.getByLabel('Country:');
     await dropdown.selectOption('canada');
-    await page.pause();
-
+    await expect(dropdown).toHaveValue('canada');
   
 
   //using nth()
