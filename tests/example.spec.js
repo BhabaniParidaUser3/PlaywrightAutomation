@@ -206,18 +206,66 @@ import { test, expect } from '@playwright/test';
 
 
 
-test('Verify Escape key closes dropdown',async({page})=>
-{
-  await page.goto('https://opensource-demo.orangehrmlive.com/');
-  await page.getByPlaceholder('Username').fill('Admin');
- await page.getByPlaceholder('Password').fill('admin123');
-await page.getByRole('button' ,{name:'Login'}).click();
-  await page.getByRole('link',{name:'Admin'}).click();
-  const dropdown= page.locator('.oxd-icon.bi-caret-down-fill.oxd-select-text--arrow');
-  await dropdown.first().click();
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('listbox')).not.toBeVisible();
- await page.pause();
+// test('Verify Escape key closes dropdown',async({page})=>
+// {
+//   await page.goto('https://opensource-demo.orangehrmlive.com/');
+//   await page.getByPlaceholder('Username').fill('Admin');
+//  await page.getByPlaceholder('Password').fill('admin123');
+// await page.getByRole('button' ,{name:'Login'}).click();
+//   await page.getByRole('link',{name:'Admin'}).click();
+//   const dropdown= page.locator('.oxd-icon.bi-caret-down-fill.oxd-select-text--arrow');
+//   await dropdown.first().click();
+//   await page.keyboard.press('Escape');
+//   await expect(page.getByRole('listbox')).not.toBeVisible();
+//  await page.pause();
 
-  }
-)
+//   }
+// )
+
+// test('Verify native dropdown selection', async ({ page }) => {
+//   await page.goto('https://www.saucedemo.com/');
+//   await page.getByPlaceholder('Username').fill('standard_user');
+//   await page.getByPlaceholder('Password').fill('secret_sauce');
+//   await page.getByRole('button', { name: 'Login' }).click();
+//   const dropdown = page.locator('select');
+//   //selectByvalue concept
+//   // await dropdown.selectOption('Price (low to high)');
+//   //SelectByLabel Concept
+//   //await dropdown.selectOption({label :'Price (high to low)'});
+//   //Select By Index concept
+//   await dropdown.selectOption({ index: 1 });
+//   await page.pause();
+
+
+// })
+
+
+test('Verify native dropdown selection when multiple dropdown present in a single page', async ({ page }) => {
+ 
+
+  //using id 
+  // await page.goto('https://practice.expandtesting.com/dropdown');
+  // const simpleDropdown=page.locator('#dropdown');
+  // await simpleDropdown.selectOption('Option 2');
+  // const countrySelectionDropdown = page.locator('#country');
+  // await countrySelectionDropdown.selectOption({ index: 5 });
+
+  //using getbylablel
+    await page.goto('https://testautomationpractice.blogspot.com/?utm_source=chatgpt.com');
+    const dropdown=page.getByLabel('Country:');
+    await dropdown.selectOption('canada');
+    await page.pause();
+
+  
+
+  //using nth()
+  // await page.goto('https://practice.expandtesting.com/dropdown');
+  // const dropdown=page.locator('select');
+  // await dropdown.nth(0).selectOption('Option 1');
+  // await dropdown.nth(1).selectOption({label :'20'});
+  // await dropdown.nth(2).selectOption({index :4});
+
+  // await page.pause();
+
+
+})
