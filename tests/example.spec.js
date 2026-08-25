@@ -240,31 +240,44 @@ import { test, expect } from '@playwright/test';
 // })
 
 
-test('Verify native dropdown selection when multiple dropdown present in a single page', async ({ page }) => {
+// test('Verify native dropdown selection when multiple dropdown present in a single page', async ({ page }) => {
  
 
-  //using id 
-  // await page.goto('https://practice.expandtesting.com/dropdown');
-  // const simpleDropdown=page.locator('#dropdown');
-  // await simpleDropdown.selectOption('Option 2');
-  // const countrySelectionDropdown = page.locator('#country');
-  // await countrySelectionDropdown.selectOption({ index: 5 });
+//   //using id 
+//   // await page.goto('https://practice.expandtesting.com/dropdown');
+//   // const simpleDropdown=page.locator('#dropdown');
+//   // await simpleDropdown.selectOption('Option 2');
+//   // const countrySelectionDropdown = page.locator('#country');
+//   // await countrySelectionDropdown.selectOption({ index: 5 });
 
-  //using getbylablel
-    await page.goto('https://testautomationpractice.blogspot.com/?utm_source=chatgpt.com');
-    const dropdown=page.getByLabel('Country:');
-    await dropdown.selectOption('canada');
-    await expect(dropdown).toHaveValue('canada');
+//   //using getbylablel
+//     // await page.goto('https://testautomationpractice.blogspot.com/?utm_source=chatgpt.com');
+//     // const dropdown=page.getByLabel('Country:');
+//     // await dropdown.selectOption('canada');
+//     // await expect(dropdown).toHaveValue('canada');
   
 
-  //using nth()
-  // await page.goto('https://practice.expandtesting.com/dropdown');
-  // const dropdown=page.locator('select');
-  // await dropdown.nth(0).selectOption('Option 1');
-  // await dropdown.nth(1).selectOption({label :'20'});
-  // await dropdown.nth(2).selectOption({index :4});
+//   //using nth()
+//   // await page.goto('https://practice.expandtesting.com/dropdown');
+//   // const dropdown=page.locator('select');
+//   // await dropdown.nth(0).selectOption('Option 1');
+//   // await dropdown.nth(1).selectOption({label :'20'});
+//   // await dropdown.nth(2).selectOption({index :4});
 
-  // await page.pause();
+//   // await page.pause();
 
 
-})
+// })
+
+
+test('Verify right clcik ',async({page})=>
+{
+  await page.goto('https://vinothqaacademy.com/mouse-event/');
+  // await page.getByRole('button', { name: 'Right Click Me' }).click({ button: 'right' });
+  // await expect(page.getByText('Edit')).toBeVisible();
+
+const but =  page.locator('button');
+await but.nth(4).click({button :'right'});
+await expect(page.getByText('Edit')).toBeVisible();
+}
+);
