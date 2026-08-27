@@ -303,18 +303,37 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('verify Ctrl+A+Backspace select all functionality',async({page})=>
-{
-  await page.goto('https://www.saucedemo.com/');
-  const usernamefield=page.getByPlaceholder('Username')
-  await usernamefield.fill('standard_user')
-  await usernamefield.press('Control+A');
-  await usernamefield.press('Backspace');
-  await expect(usernamefield).toHaveValue('');
-  await page.pause();
+// test('verify Ctrl+A+Backspace select all functionality',async({page})=>
+// {
+//   await page.goto('https://www.saucedemo.com/');
+//   const usernamefield=page.getByPlaceholder('Username')
+//   await usernamefield.fill('standard_user')
+//   await usernamefield.press('Control+A');
+//   await usernamefield.press('Backspace');
+//   await expect(usernamefield).toHaveValue('');
+//   await page.pause();
   
 
 
-}
-);
+// }
+// );
+
+
+// test('verify copy paste functionality',async({page})=>
+// {
+//   await page.goto('https://www.saucedemo.com/');
+//   const usernamefield=page.getByPlaceholder('Username')
+//   const passwordfield=page.getByPlaceholder('Password')
+//   await usernamefield.fill('standard_user');
+//   await usernamefield.press('Control+A');
+//   await usernamefield.press('Control+C');
+//   await passwordfield.click();
+//   await passwordfield.press('Control+V');
+//   await expect(passwordfield).toHaveValue('standard_user');
+//   await page.pause();
+  
+
+
+// }
+// );
 
