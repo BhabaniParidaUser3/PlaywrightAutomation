@@ -270,14 +270,34 @@ import { test, expect } from '@playwright/test';
 // })
 
 
-test('Verify right clcik ',async({page})=>
-{
-  await page.goto('https://vinothqaacademy.com/mouse-event/');
-  // await page.getByRole('button', { name: 'Right Click Me' }).click({ button: 'right' });
-  // await expect(page.getByText('Edit')).toBeVisible();
+// test('Verify right clcik ', async ({ page }) => {
+//   await page.goto('https://vinothqaacademy.com/mouse-event/');
 
-const but =  page.locator('button');
-await but.nth(4).click({button :'right'});
-await expect(page.getByText('Edit')).toBeVisible();
+//   /* using locator variable concept
+//   await page.getByRole('button', { name: 'Right Click Me' }).click({ button: 'right' });
+//   await expect(page.getByText('Edit')).toBeVisible();
+// */
+
+// /*using nth() process
+// const but =  page.locator('button');
+// await but.nth(4).click({button :'right'});
+// await expect(page.getByText('Edit')).toBeVisible();
+// }
+// */
+// );
+
+
+test('verify Ctrl+A select all functionality',async({page})=>
+{
+  await page.goto('https://www.saucedemo.com/');
+  const usernamefield=page.getByPlaceholder('Username')
+  await usernamefield.fill('standard_user')
+  await usernamefield.press('Control+A');
+  await usernamefield.fill('problem_user');
+  await expect(usernamefield).toHaveValue('problem_user');
+  await page.pause();
+  
+
+
 }
 );
