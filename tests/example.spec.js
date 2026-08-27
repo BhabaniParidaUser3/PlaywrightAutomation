@@ -287,17 +287,34 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('verify Ctrl+A select all functionality',async({page})=>
+// test('verify Ctrl+A select all functionality',async({page})=>
+// {
+//   await page.goto('https://www.saucedemo.com/');
+//   const usernamefield=page.getByPlaceholder('Username')
+//   await usernamefield.fill('standard_user')
+//   await usernamefield.press('Control+A');
+//   await usernamefield.fill('problem_user');
+//   await expect(usernamefield).toHaveValue('problem_user');
+//   await page.pause();
+  
+
+
+// }
+// );
+
+
+test('verify Ctrl+A+Backspace select all functionality',async({page})=>
 {
   await page.goto('https://www.saucedemo.com/');
   const usernamefield=page.getByPlaceholder('Username')
   await usernamefield.fill('standard_user')
   await usernamefield.press('Control+A');
-  await usernamefield.fill('problem_user');
-  await expect(usernamefield).toHaveValue('problem_user');
+  await usernamefield.press('Backspace');
+  await expect(usernamefield).toHaveValue('');
   await page.pause();
   
 
 
 }
 );
+
