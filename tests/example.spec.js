@@ -337,3 +337,39 @@ import { test, expect } from '@playwright/test';
 // }
 // );
 
+
+test('Verify radio button selection',async({page})=>
+{
+  await page.goto('https://practice.expandtesting.com/radio-buttons');
+  const favoriteColorRadioButton=page.getByRole('radio',{name:'yellow'});
+  await favoriteColorRadioButton.check();
+  await expect(favoriteColorRadioButton).toBeChecked();
+    const favoriteSportRadioButton=page.getByRole('radio',{name:'football'});
+  await favoriteSportRadioButton.check();
+  await expect(favoriteSportRadioButton).toBeChecked();
+
+
+
+
+}
+);
+
+
+test('Verify radio button group selection',async({page})=>
+{
+  await page.goto('https://practice.expandtesting.com/radio-buttons');
+  const yellowColorRadioButton=page.getByRole('radio',{name:'yellow'});
+  await yellowColorRadioButton.check();
+  await expect(yellowColorRadioButton).toBeChecked();
+
+  const  redColorRadioButton=page.getByRole('radio',{name:'red'});
+  await redColorRadioButton.check();
+  await expect(redColorRadioButton).toBeChecked();
+
+ await expect(yellowColorRadioButton).not.toBeChecked();
+
+
+
+
+}
+);
