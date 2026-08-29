@@ -169,7 +169,7 @@ import { test, expect } from '@playwright/test';
 //   await page.getByRole('button', { name: 'Double Click Me' }).dblclick();
 //   await expect(page.getByText('Double Click Detected ✅')).toBeVisible();
 //   await page.pause();
- 
+
 
 // }
 // )
@@ -241,7 +241,7 @@ import { test, expect } from '@playwright/test';
 
 
 // test('Verify native dropdown selection when multiple dropdown present in a single page', async ({ page }) => {
- 
+
 
 //   //using id 
 //   // await page.goto('https://practice.expandtesting.com/dropdown');
@@ -255,7 +255,7 @@ import { test, expect } from '@playwright/test';
 //     // const dropdown=page.getByLabel('Country:');
 //     // await dropdown.selectOption('canada');
 //     // await expect(dropdown).toHaveValue('canada');
-  
+
 
 //   //using nth()
 //   // await page.goto('https://practice.expandtesting.com/dropdown');
@@ -296,7 +296,7 @@ import { test, expect } from '@playwright/test';
 //   await usernamefield.fill('problem_user');
 //   await expect(usernamefield).toHaveValue('problem_user');
 //   await page.pause();
-  
+
 
 
 // }
@@ -312,7 +312,7 @@ import { test, expect } from '@playwright/test';
 //   await usernamefield.press('Backspace');
 //   await expect(usernamefield).toHaveValue('');
 //   await page.pause();
-  
+
 
 
 // }
@@ -331,44 +331,81 @@ import { test, expect } from '@playwright/test';
 //   await passwordfield.press('Control+V');
 //   await expect(passwordfield).toHaveValue('standard_user');
 //   await page.pause();
-  
+
 
 
 // }
 // );
 
 
-test('Verify radio button selection',async({page})=>
-{
-  await page.goto('https://practice.expandtesting.com/radio-buttons');
-  const favoriteColorRadioButton=page.getByRole('radio',{name:'yellow'});
-  await favoriteColorRadioButton.check();
-  await expect(favoriteColorRadioButton).toBeChecked();
-    const favoriteSportRadioButton=page.getByRole('radio',{name:'football'});
-  await favoriteSportRadioButton.check();
-  await expect(favoriteSportRadioButton).toBeChecked();
+// test('Verify radio button selection',async({page})=>
+// {
+//   await page.goto('https://practice.expandtesting.com/radio-buttons');
+//   const favoriteColorRadioButton=page.getByRole('radio',{name:'yellow'});
+//   await favoriteColorRadioButton.check();
+//   await expect(favoriteColorRadioButton).toBeChecked();
+//     const favoriteSportRadioButton=page.getByRole('radio',{name:'football'});
+//   await favoriteSportRadioButton.check();
+//   await expect(favoriteSportRadioButton).toBeChecked();
 
 
 
 
-}
-);
+// }
+// );
 
 
-test('Verify radio button group selection',async({page})=>
-{
-  await page.goto('https://practice.expandtesting.com/radio-buttons');
-  const yellowColorRadioButton=page.getByRole('radio',{name:'yellow'});
-  await yellowColorRadioButton.check();
-  await expect(yellowColorRadioButton).toBeChecked();
+// test('Verify radio button group selection',async({page})=>
+// {
+//   await page.goto('https://practice.expandtesting.com/radio-buttons');
+//   const yellowColorRadioButton=page.getByRole('radio',{name:'yellow'});
+//   await yellowColorRadioButton.check();
+//   await expect(yellowColorRadioButton).toBeChecked();
 
-  const  redColorRadioButton=page.getByRole('radio',{name:'red'});
-  await redColorRadioButton.check();
-  await expect(redColorRadioButton).toBeChecked();
+//   const  redColorRadioButton=page.getByRole('radio',{name:'red'});
+//   await redColorRadioButton.check();
+//   await expect(redColorRadioButton).toBeChecked();
 
- await expect(yellowColorRadioButton).not.toBeChecked();
+//  await expect(yellowColorRadioButton).not.toBeChecked();
 
 
+
+
+// }
+// );
+
+
+
+test('Verify check the checkbox and Uncheck the checkbox ', async ({ page }) => {
+
+  await page.goto('https://www.qapractice.com/practice-different-ui-elements');
+
+  // verify single checkbox
+  const singcheckbox = page.getByTestId('ui-single-checkbox');
+  await singcheckbox.check();
+  await expect(singcheckbox).toBeChecked();
+  await singcheckbox.uncheck();
+  await expect(singcheckbox).not.toBeChecked();
+  await page.pause();
+
+  //verify select multiple checkbox
+  const multiplecheckboxoption1 = page.getByTestId('ui-checkbox-option1');
+  await multiplecheckboxoption1.check();
+  await expect(multiplecheckboxoption1).toBeChecked();
+  const multiplecheckboxoption2 = page.getByTestId('ui-checkbox-option2');
+  await multiplecheckboxoption2.check();
+  await expect(multiplecheckboxoption2).toBeChecked();
+  const multiplecheckboxoption3 = page.getByTestId('ui-checkbox-option3');
+  await multiplecheckboxoption3.check();
+  await expect(multiplecheckboxoption3).toBeChecked();
+
+  await multiplecheckboxoption1.uncheck();
+  await expect(multiplecheckboxoption1).not.toBeChecked();
+  await multiplecheckboxoption2.uncheck();
+  await expect(multiplecheckboxoption2).not.toBeChecked();
+  await multiplecheckboxoption3.uncheck();
+  await expect(multiplecheckboxoption3).not.toBeChecked();
+  await page.pause();
 
 
 }
