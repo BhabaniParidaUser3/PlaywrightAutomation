@@ -376,37 +376,98 @@ import { test, expect } from '@playwright/test';
 
 
 
-test('Verify check the checkbox and Uncheck the checkbox ', async ({ page }) => {
+// test('Verify check the checkbox and Uncheck the checkbox ', async ({ page }) => {
 
-  await page.goto('https://www.qapractice.com/practice-different-ui-elements');
+//   await page.goto('https://www.qapractice.com/practice-different-ui-elements');
 
-  // verify single checkbox
-  const singcheckbox = page.getByTestId('ui-single-checkbox');
-  await singcheckbox.check();
-  await expect(singcheckbox).toBeChecked();
-  await singcheckbox.uncheck();
-  await expect(singcheckbox).not.toBeChecked();
-  await page.pause();
+//   // verify single checkbox
+//   const singcheckbox = page.getByTestId('ui-single-checkbox');
+//   await singcheckbox.check();
+//   await expect(singcheckbox).toBeChecked();
+//   await singcheckbox.uncheck();
+//   await expect(singcheckbox).not.toBeChecked();
+//   await page.pause();
 
-  //verify select multiple checkbox
-  const multiplecheckboxoption1 = page.getByTestId('ui-checkbox-option1');
-  await multiplecheckboxoption1.check();
-  await expect(multiplecheckboxoption1).toBeChecked();
-  const multiplecheckboxoption2 = page.getByTestId('ui-checkbox-option2');
-  await multiplecheckboxoption2.check();
-  await expect(multiplecheckboxoption2).toBeChecked();
-  const multiplecheckboxoption3 = page.getByTestId('ui-checkbox-option3');
-  await multiplecheckboxoption3.check();
-  await expect(multiplecheckboxoption3).toBeChecked();
+//   //verify select multiple checkbox
+//   const multiplecheckboxoption1 = page.getByTestId('ui-checkbox-option1');
+//   await multiplecheckboxoption1.check();
+//   await expect(multiplecheckboxoption1).toBeChecked();
+//   const multiplecheckboxoption2 = page.getByTestId('ui-checkbox-option2');
+//   await multiplecheckboxoption2.check();
+//   await expect(multiplecheckboxoption2).toBeChecked();
+//   const multiplecheckboxoption3 = page.getByTestId('ui-checkbox-option3');
+//   await multiplecheckboxoption3.check();
+//   await expect(multiplecheckboxoption3).toBeChecked();
 
-  await multiplecheckboxoption1.uncheck();
-  await expect(multiplecheckboxoption1).not.toBeChecked();
-  await multiplecheckboxoption2.uncheck();
-  await expect(multiplecheckboxoption2).not.toBeChecked();
-  await multiplecheckboxoption3.uncheck();
-  await expect(multiplecheckboxoption3).not.toBeChecked();
-  await page.pause();
+//   await multiplecheckboxoption1.uncheck();
+//   await expect(multiplecheckboxoption1).not.toBeChecked();
+//   await multiplecheckboxoption2.uncheck();
+//   await expect(multiplecheckboxoption2).not.toBeChecked();
+//   await multiplecheckboxoption3.uncheck();
+//   await expect(multiplecheckboxoption3).not.toBeChecked();
+//   await page.pause();
 
 
+// }
+// );
+
+
+// test('Verify check the checkbox and Uncheck the checkbox ', async ({ page }) => {
+
+//   await page.goto('https://www.qapractice.com/practice-different-ui-elements');
+
+
+//   //verify select multiple checkbox
+//   const multiplecheckboxoption1 = page.getByRole('checkbox',{name:'Option 1'});
+//   await multiplecheckboxoption1.check();
+//   await expect(multiplecheckboxoption1).toBeChecked();
+//   await multiplecheckboxoption1.uncheck();
+//   await expect(multiplecheckboxoption1).not.toBeChecked();
+  
+//   await page.pause();
+
+
+// }
+// );
+
+// test('Verify table row count',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const tableRows= page.getByRole('row');
+//   const tobaleRowsCount=await tableRows.count();
+//   console.log('tobaleRowsCount: '+tobaleRowsCount);
+//   await expect(tobaleRowsCount).toBeGreaterThan(0);
+//   await page.pause();
+// }
+// );
+
+// test('Verify specific table row',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//  await expect(chromerow).toBeVisible();
+//   await page.pause();
+// }
+// );
+
+
+test('Find a Cell Inside the Row',async({page})=>
+{
+
+  await page.goto('https://practice.expandtesting.com/dynamic-table');
+  const chromerow= page.getByRole('row',{name:/Chrome/});
+  const cells=chromerow.getByRole('cell');
+  const cellCount=await cells.count();
+  console.log(cellCount);
+  const firstCellText = await cells.first().innerText();
+  console.log(firstCellText);
+expect(firstCellText).toBe('Chrome');
+ 
 }
 );
+
+
+
+
