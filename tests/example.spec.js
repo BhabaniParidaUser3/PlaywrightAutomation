@@ -453,20 +453,62 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('Find a Cell Inside the Row',async({page})=>
+// test('Find a Cell Inside the Row',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells=chromerow.getByRole('cell');
+//   const cellCount=await cells.count();
+//   console.log(cellCount);
+//   const firstCellText = await cells.first().innerText();
+//   console.log(firstCellText);
+// expect(firstCellText).toBe('Chrome');
+ 
+// }
+// );
+
+
+// test('Find a Cell Inside the Row using nth()',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells=chromerow.getByRole('cell');
+//   const secondCell=cells.nth(1);
+//   const secondCellText=await secondCell.innerText();
+//   console.log(secondCellText);
+// }
+// );
+
+// test('Find a Cell Inside the Row using nth() and assert',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells=chromerow.getByRole('cell');
+//   const firstCell=cells.nth(0);
+//   const firstCellText=await firstCell.innerText();
+//   console.log(firstCellText);
+//   await expect(firstCellText).toBe('Chrome');
+// }
+// );
+
+
+test('Verify a dynamic table cell',async({page})=>
 {
 
   await page.goto('https://practice.expandtesting.com/dynamic-table');
   const chromerow= page.getByRole('row',{name:/Chrome/});
-  const cells=chromerow.getByRole('cell');
-  const cellCount=await cells.count();
-  console.log(cellCount);
-  const firstCellText = await cells.first().innerText();
-  console.log(firstCellText);
-expect(firstCellText).toBe('Chrome');
- 
+  const cells= chromerow.getByRole('cell');
+  const SecondCell=cells.nth(1);
+  await expect(SecondCell).toBeVisible();
 }
 );
+
+
+
+
 
 
 
