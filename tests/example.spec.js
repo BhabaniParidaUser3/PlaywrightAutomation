@@ -495,14 +495,65 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('Verify a dynamic table cell',async({page})=>
+// test('Verify a dynamic table cell',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells= chromerow.getByRole('cell');
+//   const SecondCell=cells.nth(1);
+//   await expect(SecondCell).toBeVisible();
+// }
+// );
+
+// test('Verify a dynamic table cell',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells= chromerow.getByRole('cell');
+//   const FirstCell=cells.nth(0);
+//   const FirstCellText=await FirstCell.innerText();
+//   await expect(FirstCell).toBe('Chrome');
+// }
+// );
+
+// test('Verify a dynamic table cell',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells= chromerow.getByRole('cell');
+//   const cellCount=await cells.count();
+//  console.log(cellCount);
+// }
+// );
+
+
+// test('Verify cellCount should be greater than 0',async({page})=>
+// {
+
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells= chromerow.getByRole('cell');
+//   const cellCount=await cells.count();
+// await expect(cellCount).toBeGreaterThan(0)
+// }
+// );
+
+test('Find a particular row and retrieve the text from all its cells.',async({page})=>
 {
 
   await page.goto('https://practice.expandtesting.com/dynamic-table');
   const chromerow= page.getByRole('row',{name:/Chrome/});
   const cells= chromerow.getByRole('cell');
-  const SecondCell=cells.nth(1);
-  await expect(SecondCell).toBeVisible();
+  const cellCount=await cells.count();
+for(let i=0;i<cellCount;i++)
+{
+  const celltext=await cells.nth(i).innerText()
+  console.log('cell ' + i + ':' +celltext);
+
+}
 }
 );
 
