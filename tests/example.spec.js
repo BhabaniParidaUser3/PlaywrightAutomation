@@ -541,26 +541,73 @@ import { test, expect } from '@playwright/test';
 // }
 // );
 
-test('Find a particular row and retrieve the text from all its cells.',async({page})=>
-{
+// test('Find a particular row and retrieve the text from all its cells.',async({page})=>
+// {
 
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   const chromerow= page.getByRole('row',{name:/Chrome/});
+//   const cells= chromerow.getByRole('cell');
+//   const cellCount=await cells.count();
+// for(let i=0;i<cellCount;i++)
+// {
+//   const celltext=await cells.nth(i).innerText()
+//   console.log('cell ' + i + ':' +celltext);
+
+// }
+// }
+// );
+
+
+test('searching for a row dynamically.',async({page})=>
+{
   await page.goto('https://practice.expandtesting.com/dynamic-table');
-  const chromerow= page.getByRole('row',{name:/Chrome/});
-  const cells= chromerow.getByRole('cell');
-  const cellCount=await cells.count();
-for(let i=0;i<cellCount;i++)
+  let totalRows=page.getByRole('row');
+  let rowsCount=await totalRows.count();
+  console.log(rowsCount);
+//   for(let i=0;i<rowsCount;i++)
+//   {
+//     const cells=totalRows.nth(i).getByRole('cell');
+//     const cellCount=await cells.count();
+//     const rowCellTexts = [];
+//     for(let j=0;j<cellCount;j++)
+//     {
+//       const  celltext=await cells.nth(j).innerText();
+//       rowCellTexts.push(celltext.trim());
+      
+// }
+      
+//     }
+    
+
+//   }
+//     if (rowCellTexts.some(cellText => cellText.includes('Chrome'))) {
+//     console.log(rowCellTexts.join(' | '));
+//     break;
+   
+ 
+
+// }
+
+for(let i=0;i<rowsCount;i++)
 {
-  const celltext=await cells.nth(i).innerText()
-  console.log('cell ' + i + ':' +celltext);
+    const cells = totalRows.nth(i).getByRole('cell');
+    const cellCount = await cells.count();
+    const rowCellTexts = [];
 
-}
-}
-);
+    for(let j=0;j<cellCount;j++)
+    {
+        const celltext = await cells.nth(j).innerText();
+        rowCellTexts.push(celltext.trim());
+    } // ✅ inner loop ends here
+
+    if (rowCellTexts.some(cellText => cellText.includes('Chrome')))
+    {
+        console.log(rowCellTexts.join(' | '));
 
 
-
-
-
-
-
-
+      // Assert that Chrome exists in this row
+      expect(rowCellTexts).toContain('Chrome'); 
+        break;
+    }
+} // ✅ outer loop ends here
+})
