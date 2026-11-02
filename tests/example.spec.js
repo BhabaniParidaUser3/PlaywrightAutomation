@@ -558,56 +558,143 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('searching for a row dynamically.',async({page})=>
-{
-  await page.goto('https://practice.expandtesting.com/dynamic-table');
-  let totalRows=page.getByRole('row');
-  let rowsCount=await totalRows.count();
-  console.log(rowsCount);
-//   for(let i=0;i<rowsCount;i++)
-//   {
-//     const cells=totalRows.nth(i).getByRole('cell');
-//     const cellCount=await cells.count();
-//     const rowCellTexts = [];
-//     for(let j=0;j<cellCount;j++)
-//     {
-//       const  celltext=await cells.nth(j).innerText();
-//       rowCellTexts.push(celltext.trim());
+// test('searching for a row dynamically.',async({page})=>
+// {
+//   await page.goto('https://practice.expandtesting.com/dynamic-table');
+//   let totalRows=page.getByRole('row');
+//   let rowsCount=await totalRows.count();
+//   console.log(rowsCount);
+// //   for(let i=0;i<rowsCount;i++)
+// //   {
+// //     const cells=totalRows.nth(i).getByRole('cell');
+// //     const cellCount=await cells.count();
+// //     const rowCellTexts = [];
+// //     for(let j=0;j<cellCount;j++)
+// //     {
+// //       const  celltext=await cells.nth(j).innerText();
+// //       rowCellTexts.push(celltext.trim());
       
-// }
+// // }
       
-//     }
+// //     }
     
 
-//   }
-//     if (rowCellTexts.some(cellText => cellText.includes('Chrome'))) {
-//     console.log(rowCellTexts.join(' | '));
-//     break;
+// //   }
+// //     if (rowCellTexts.some(cellText => cellText.includes('Chrome'))) {
+// //     console.log(rowCellTexts.join(' | '));
+// //     break;
    
  
 
+// // }
+
+// for(let i=0;i<rowsCount;i++)
+// {
+//     const cells = totalRows.nth(i).getByRole('cell');
+//     const cellCount = await cells.count();
+//     const rowCellTexts = [];
+
+//     for(let j=0;j<cellCount;j++)
+//     {
+//         const celltext = await cells.nth(j).innerText();
+//         rowCellTexts.push(celltext.trim());
+//     } // ✅ inner loop ends here
+
+//     if (rowCellTexts.some(cellText => cellText.includes('Chrome')))
+//     {
+//         console.log(rowCellTexts.join(' | '));
+
+
+//       // Assert that Chrome exists in this row
+//       expect(rowCellTexts).toContain('Chrome'); 
+//         break;
+//     }
+// } // ✅ outer loop ends here
 // }
+// )
 
-for(let i=0;i<rowsCount;i++)
+// test('Handling simple Alert',async({page})=>
+// {
+//  await page.goto("https://practice.expandtesting.com/js-dialogs");
+// page.on('dialog', async dialog => {
+//     console.log(dialog.message());
+//     const alertmessage=dialog.message();
+//     expect(alertmessage).toBe("I am a Js Alert");
+//     await dialog.accept();
+// });
+// await page.locator('#js-alert').click();
+// }
+// );
+
+
+
+
+// test('Handling Confirm dialog-accept',async({page})=>
+// {
+//  await page.goto("https://practice.expandtesting.com/js-dialogs");
+// page.on('dialog', async dialog => {
+//     console.log(dialog.message());
+//     console.log(dialog.type());
+//     const alertmessage=dialog.message();
+//     expect(alertmessage).toBe("I am a Js Confirm");
+//     await dialog.accept();
+// });
+// await page.locator('#js-confirm').click();
+// const dialogMessage=await page.locator('#dialog-response').innerText();
+//     expect(dialogMessage).toBe('Ok');
+// }
+// );
+
+
+
+// test('Handling Confirm dialog-dismis',async({page})=>
+// {
+//  await page.goto("https://practice.expandtesting.com/js-dialogs");
+// page.on('dialog', async dialog => {
+//     console.log(dialog.message());
+//     console.log(dialog.type());
+//     const dialogMessage=dialog.message();
+//     expect(dialogMessage).toBe("I am a Js Confirm");
+//     await dialog.dismiss();
+    
+
+// });
+// await page.locator('#js-confirm').click();
+// const dialogResponse=await page.locator('#dialog-response').innerText();
+//     expect(dialogResponse).toBe('Cancel');
+// }
+// );
+
+
+// test('Handling Prompt dialog-accept',async({page})=>
+// {
+//  await page.goto("https://practice.expandtesting.com/js-dialogs");
+// page.on('dialog', async dialog => {
+//     console.log(dialog.message());
+//     console.log(dialog.type());
+//     const promptMessage=dialog.message();
+//     expect(promptMessage).toBe("I am a Js prompt");
+//     await dialog.accept('Bhabani');
+// });
+// await page.locator('#js-prompt').click();
+// const dialogMessage=await page.locator('#dialog-response').innerText();
+//     expect(dialogMessage).toBe('Bhabani');
+// }
+// );
+
+
+test('Handling Prompt dialog-dismis',async({page})=>
 {
-    const cells = totalRows.nth(i).getByRole('cell');
-    const cellCount = await cells.count();
-    const rowCellTexts = [];
-
-    for(let j=0;j<cellCount;j++)
-    {
-        const celltext = await cells.nth(j).innerText();
-        rowCellTexts.push(celltext.trim());
-    } // ✅ inner loop ends here
-
-    if (rowCellTexts.some(cellText => cellText.includes('Chrome')))
-    {
-        console.log(rowCellTexts.join(' | '));
-
-
-      // Assert that Chrome exists in this row
-      expect(rowCellTexts).toContain('Chrome'); 
-        break;
-    }
-} // ✅ outer loop ends here
-})
+ await page.goto("https://practice.expandtesting.com/js-dialogs");
+page.on('dialog', async dialog => {
+    console.log(dialog.message());
+    console.log(dialog.type());
+    const promptMessage=dialog.message();
+    expect(promptMessage).toBe("I am a Js prompt");
+    await dialog.dismiss();
+});
+await page.locator('#js-prompt').click();
+const dialogMessage=await page.locator('#dialog-response').innerText();
+    expect(dialogMessage).toBe('');
+}
+);
