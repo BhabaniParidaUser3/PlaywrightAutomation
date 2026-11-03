@@ -423,7 +423,7 @@ import { test, expect } from '@playwright/test';
 //   await expect(multiplecheckboxoption1).toBeChecked();
 //   await multiplecheckboxoption1.uncheck();
 //   await expect(multiplecheckboxoption1).not.toBeChecked();
-  
+
 //   await page.pause();
 
 
@@ -464,7 +464,7 @@ import { test, expect } from '@playwright/test';
 //   const firstCellText = await cells.first().innerText();
 //   console.log(firstCellText);
 // expect(firstCellText).toBe('Chrome');
- 
+
 // }
 // );
 
@@ -573,18 +573,18 @@ import { test, expect } from '@playwright/test';
 // //     {
 // //       const  celltext=await cells.nth(j).innerText();
 // //       rowCellTexts.push(celltext.trim());
-      
+
 // // }
-      
+
 // //     }
-    
+
 
 // //   }
 // //     if (rowCellTexts.some(cellText => cellText.includes('Chrome'))) {
 // //     console.log(rowCellTexts.join(' | '));
 // //     break;
-   
- 
+
+
 
 // // }
 
@@ -656,7 +656,7 @@ import { test, expect } from '@playwright/test';
 //     const dialogMessage=dialog.message();
 //     expect(dialogMessage).toBe("I am a Js Confirm");
 //     await dialog.dismiss();
-    
+
 
 // });
 // await page.locator('#js-confirm').click();
@@ -683,18 +683,54 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('Handling Prompt dialog-dismis',async({page})=>
-{
- await page.goto("https://practice.expandtesting.com/js-dialogs");
-page.on('dialog', async dialog => {
-    console.log(dialog.message());
-    console.log(dialog.type());
-    const promptMessage=dialog.message();
-    expect(promptMessage).toBe("I am a Js prompt");
-    await dialog.dismiss();
-});
-await page.locator('#js-prompt').click();
-const dialogMessage=await page.locator('#dialog-response').innerText();
-    expect(dialogMessage).toBe('');
+// test('Handling Prompt dialog-dismis',async({page})=>
+// {
+//  await page.goto("https://practice.expandtesting.com/js-dialogs");
+// page.on('dialog', async dialog => {
+//     console.log(dialog.message());
+//     console.log(dialog.type());
+//     const promptMessage=dialog.message();
+//     expect(promptMessage).toBe("I am a Js prompt");
+//     await dialog.dismiss();
+// });
+// await page.locator('#js-prompt').click();
+// const dialogMessage=await page.locator('#dialog-response').innerText();
+//     expect(dialogMessage).toBe('');
+// }
+// );
+
+
+test('Conditional Dialog Handling (if/else)', async ({ page }) => {
+    await page.goto("https://practice.expandtesting.com/js-dialogs");
+    page.on('dialog', async dialog => {
+
+        if (dialog.type() === 'alert') {
+            expect(dialog.type()).toBe('alert');
+            await dialog.accept();
+            console.log(dialog.message());
+            console.log(dialog.type());
+            const alertMessage = dialog.message();
+            expect(alertMessage).toBe('I am a Js Alert');
+        }
+        else if (dialog.type() === 'confirm') {
+            expect(dialog.type()).toBe('confirm');
+            await dialog.dismiss();
+            console.log(dialog.message());
+            console.log(dialog.type());
+            const confirmMessage = dialog.message();
+            expect(confirmMessage).toBe('I am a Js Confirm');
+        }
+        else if (dialog.type() === 'prompt') {
+            expect(dialog.type()).toBe('prompt');
+            await dialog.accept('Testing');
+            console.log(dialog.message());
+            console.log(dialog.type());
+            const promptMessage = dialog.message();
+            expect(promptMessage).toBe('I am a Js prompt');
+        }
+    });
+    //await page.locator('#js-alert').click();
+    await page.locator('#js-confirm').click();
+   // await page.locator('#js-prompt').click();
 }
 );
