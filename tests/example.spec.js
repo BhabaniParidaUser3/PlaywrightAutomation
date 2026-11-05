@@ -700,37 +700,66 @@ import { test, expect } from '@playwright/test';
 // );
 
 
-test('Conditional Dialog Handling (if/else)', async ({ page }) => {
-    await page.goto("https://practice.expandtesting.com/js-dialogs");
-    page.on('dialog', async dialog => {
+// test('Conditional Dialog Handling (if/else)', async ({ page }) => {
+//     await page.goto("https://practice.expandtesting.com/js-dialogs");
+//     page.on('dialog', async dialog => {
 
-        if (dialog.type() === 'alert') {
-            expect(dialog.type()).toBe('alert');
-            await dialog.accept();
-            console.log(dialog.message());
-            console.log(dialog.type());
-            const alertMessage = dialog.message();
-            expect(alertMessage).toBe('I am a Js Alert');
-        }
-        else if (dialog.type() === 'confirm') {
-            expect(dialog.type()).toBe('confirm');
-            await dialog.dismiss();
-            console.log(dialog.message());
-            console.log(dialog.type());
-            const confirmMessage = dialog.message();
-            expect(confirmMessage).toBe('I am a Js Confirm');
-        }
-        else if (dialog.type() === 'prompt') {
-            expect(dialog.type()).toBe('prompt');
-            await dialog.accept('Testing');
-            console.log(dialog.message());
-            console.log(dialog.type());
-            const promptMessage = dialog.message();
-            expect(promptMessage).toBe('I am a Js prompt');
-        }
-    });
-    //await page.locator('#js-alert').click();
-    await page.locator('#js-confirm').click();
-   // await page.locator('#js-prompt').click();
-}
-);
+//         if (dialog.type() === 'alert') {
+//             expect(dialog.type()).toBe('alert');
+//             await dialog.accept();
+//             console.log(dialog.message());
+//             console.log(dialog.type());
+//             const alertMessage = dialog.message();
+//             expect(alertMessage).toBe('I am a Js Alert');
+//         }
+//         else if (dialog.type() === 'confirm') {
+//             expect(dialog.type()).toBe('confirm');
+//             await dialog.dismiss();
+//             console.log(dialog.message());
+//             console.log(dialog.type());
+//             const confirmMessage = dialog.message();
+//             expect(confirmMessage).toBe('I am a Js Confirm');
+//         }
+//         else if (dialog.type() === 'prompt') {
+//             expect(dialog.type()).toBe('prompt');
+//             await dialog.accept('Testing');
+//             console.log(dialog.message());
+//             console.log(dialog.type());
+//             const promptMessage = dialog.message();
+//             expect(promptMessage).toBe('I am a Js prompt');
+//         }
+//     });
+//     //await page.locator('#js-alert').click();
+//     await page.locator('#js-confirm').click();
+//    // await page.locator('#js-prompt').click();
+// }
+// );
+
+test('Locate an iframe',async({page})=>
+{
+    await page.goto('https://practice.expandtesting.com/iframe');
+    /**img tag */
+    const frame1=page.frameLocator('#iframe-youtube');
+   //const image= frame1.locator('img[alt="thumbnail-image"]');
+    //const image= frame1.locator('img[src="thumbnail-image"]');
+    //const image= frame1.locator('img[id="thumbnail-image"]');
+   // const image= frame1.locator('img[class="thumbnail-image"]');
+   //await expect(image).toBeVisible();
+
+   /**button tag */
+//    const button1=frame1.locator('button[class="ytmVideoInfoLink ytmVideoInfoChannelAvatar"]');
+//    await expect(button1).toBeVisible();
+//    await expect(button1).toBeEnabled();
+//   await  button1.click();
+//   await page.pause();
+
+/**link tag */
+
+const anchor1=frame1.getByRole('link',{name:'Cypress.io'});
+await expect(anchor1).toBeVisible();
+await anchor1.click();
+
+
+
+
+})
