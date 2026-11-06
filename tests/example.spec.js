@@ -735,29 +735,50 @@ import { test, expect } from '@playwright/test';
 // }
 // );
 
-test('Locate an iframe',async({page})=>
-{
+// test('Locate an iframe',async({page})=>
+// {
+//     await page.goto('https://practice.expandtesting.com/iframe');
+//     /**img tag */
+//     const frame1=page.frameLocator('#iframe-youtube');
+//    //const image= frame1.locator('img[alt="thumbnail-image"]');
+//     //const image= frame1.locator('img[src="thumbnail-image"]');
+//     //const image= frame1.locator('img[id="thumbnail-image"]');
+//    // const image= frame1.locator('img[class="thumbnail-image"]');
+//    //await expect(image).toBeVisible();
+
+//    /**button tag */
+// //    const button1=frame1.locator('button[class="ytmVideoInfoLink ytmVideoInfoChannelAvatar"]');
+// //    await expect(button1).toBeVisible();
+// //    await expect(button1).toBeEnabled();
+// //   await  button1.click();
+// //   await page.pause();
+
+// /**link tag */
+
+// const anchor1=frame1.getByRole('link',{name:'Cypress.io'});
+// await expect(anchor1).toBeVisible();
+// await anchor1.click();
+
+
+
+
+// })
+
+
+test('handling a new browser tab opened by clicking the link inside the iframe', async ({ page }) => {
     await page.goto('https://practice.expandtesting.com/iframe');
-    /**img tag */
-    const frame1=page.frameLocator('#iframe-youtube');
-   //const image= frame1.locator('img[alt="thumbnail-image"]');
-    //const image= frame1.locator('img[src="thumbnail-image"]');
-    //const image= frame1.locator('img[id="thumbnail-image"]');
-   // const image= frame1.locator('img[class="thumbnail-image"]');
-   //await expect(image).toBeVisible();
+    const frame1 = page.frameLocator('#iframe-youtube');
+    /**link tag */
+    const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
+    await expect(anchor1).toBeVisible();
+    const popupPromise = page.waitForEvent('popup');
+    await anchor1.click();
+    const newPage = await popupPromise;
+    await newPage.waitForLoadState();
+    console.log(newPage.url());
+    await expect(newPage).toHaveURL(/youtube\.com/);
 
-   /**button tag */
-//    const button1=frame1.locator('button[class="ytmVideoInfoLink ytmVideoInfoChannelAvatar"]');
-//    await expect(button1).toBeVisible();
-//    await expect(button1).toBeEnabled();
-//   await  button1.click();
-//   await page.pause();
 
-/**link tag */
-
-const anchor1=frame1.getByRole('link',{name:'Cypress.io'});
-await expect(anchor1).toBeVisible();
-await anchor1.click();
 
 
 
