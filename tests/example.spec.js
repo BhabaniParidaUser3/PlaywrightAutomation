@@ -765,22 +765,139 @@ import { test, expect } from '@playwright/test';
 // })
 
 
-test('handling a new browser tab opened by clicking the link inside the iframe', async ({ page }) => {
+// test('handling a new browser tab opened by clicking the link inside the iframe', async ({ page }) => {
+//     await page.goto('https://practice.expandtesting.com/iframe');
+//     const frame1 = page.frameLocator('#iframe-youtube');
+//     /**link tag */
+//     const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
+//     await expect(anchor1).toBeVisible();
+//     const popupPromise = page.waitForEvent('popup');
+//     await anchor1.click();
+//     const newPage = await popupPromise;
+//     await newPage.waitForLoadState();
+//     console.log(newPage.url());
+//     await expect(newPage).toHaveURL(/youtube\.com/);
+// })
+
+
+// test('Listens for a new page opened anywhere within the browser context.', async ({ page,context }) => {
+//     await page.goto('https://practice.expandtesting.com/iframe');
+//     const frame1 = page.frameLocator('#iframe-youtube');
+//     /**link tag */
+//     const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
+//     await expect(anchor1).toBeVisible();
+//     const newPopupPromise = context.waitForEvent('page');
+//     await anchor1.click();
+//     const newPage = await newPopupPromise;
+//     await newPage.waitForLoadState();
+//     console.log(newPage.url());
+//     await expect(newPage).toHaveURL(/youtube\.com/);
+//     console.log('Original tab URL:', page.url());
+// console.log('New tab URL:', newPage.url());
+// console.log('New tab title:', await newPage.title());
+// })
+
+
+
+
+// test('Listens for a new page opened anywhere within the browser context.', async ({ page,context }) => {
+//     await page.goto('https://practice.expandtesting.com/iframe');
+//     const frame1 = page.frameLocator('#iframe-youtube');
+//     /**link tag */
+//     const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
+//     await expect(anchor1).toBeVisible();
+//     const newPopupPromise = context.waitForEvent('page');
+//     await anchor1.click();
+//     const newPage = await newPopupPromise;
+//     await newPage.waitForLoadState();
+//     console.log(newPage.url());
+//     await expect(newPage).toHaveURL(/youtube\.com/);
+ 
+//  const allPages=context.pages();
+//  console.log(allPages.length);
+//  const firstTab=allPages[0];
+//  const secondTab=allPages[1];
+//  console.log(firstTab.url());
+//  console.log(secondTab.url());
+
+// //  await newPage.close();
+// //  console.log(context.pages().length);
+// //  console.log('Original tab URL:', page.url());
+
+// // await expect(page).toHaveURL(/practice\.expandtesting\.com/);
+
+// console.log('********************');
+
+// const opentabs=context.pages()
+// for(const tab of opentabs)
+// {
+// console.log(await tab.title());
+// console.log(tab.url());
+// }
+
+// })
+
+test('Interact with a specific tab dynamically', async ({ page,context }) => {
     await page.goto('https://practice.expandtesting.com/iframe');
     const frame1 = page.frameLocator('#iframe-youtube');
     /**link tag */
     const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
     await expect(anchor1).toBeVisible();
-    const popupPromise = page.waitForEvent('popup');
+    const newPopupPromise = context.waitForEvent('page');
     await anchor1.click();
-    const newPage = await popupPromise;
+    const newPage = await newPopupPromise;
     await newPage.waitForLoadState();
     console.log(newPage.url());
     await expect(newPage).toHaveURL(/youtube\.com/);
+ 
+ const allPages=context.pages();
+ console.log(allPages.length);
+ const firstTab=allPages[0];
+ const secondTab=allPages[1];
+ console.log(firstTab.url());
+ console.log(secondTab.url());
+
+//  await newPage.close();
+//  console.log(context.pages().length);
+//  console.log('Original tab URL:', page.url());
+
+// await expect(page).toHaveURL(/practice\.expandtesting\.com/);
+
+console.log('********************');
+
+const opentabs=context.pages();
+let youtubeTab;
+for(const tab of opentabs)
+{
+const title=await tab.title();
+console.log(title);
+if(title.includes('YouTube'))
+{
+    console.log('youtube tab found');
+   // console.log(tab.url());
+    youtubeTab=tab;
+}
+else
+{
+    console.log('Original tab found');
+}
+}
+console.log('outside of the for loop '+ youtubeTab?.url());
+console.log(await youtubeTab?.title());
+
+const youtubeUrl=youtubeTab?.url()
+if(youtubeUrl?.includes('youtube.com'))
+{ 
+    await expect(youtubeTab).toBeDefined();
+await youtubeTab?.close();
+}
+else
+{
+    console.log('its not include');
+}
 
 
-
-
-
+await expect.poll(() => context.pages().length).toBe(1);
 
 })
+
