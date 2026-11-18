@@ -812,7 +812,7 @@ import { test, expect } from '@playwright/test';
 //     await newPage.waitForLoadState();
 //     console.log(newPage.url());
 //     await expect(newPage).toHaveURL(/youtube\.com/);
- 
+
 //  const allPages=context.pages();
 //  console.log(allPages.length);
 //  const firstTab=allPages[0];
@@ -837,67 +837,121 @@ import { test, expect } from '@playwright/test';
 
 // })
 
-test('Interact with a specific tab dynamically', async ({ page,context }) => {
-    await page.goto('https://practice.expandtesting.com/iframe');
-    const frame1 = page.frameLocator('#iframe-youtube');
-    /**link tag */
-    const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
-    await expect(anchor1).toBeVisible();
-    const newPopupPromise = context.waitForEvent('page');
-    await anchor1.click();
-    const newPage = await newPopupPromise;
-    await newPage.waitForLoadState();
-    console.log(newPage.url());
-    await expect(newPage).toHaveURL(/youtube\.com/);
- 
- const allPages=context.pages();
- console.log(allPages.length);
- const firstTab=allPages[0];
- const secondTab=allPages[1];
- console.log(firstTab.url());
- console.log(secondTab.url());
+// test('Interact with a specific tab dynamically', async ({ page,context }) => {
+//     await page.goto('https://practice.expandtesting.com/iframe');
+//     const frame1 = page.frameLocator('#iframe-youtube');
+//     /**link tag */
+//     const anchor1 = frame1.getByRole('link', { name: 'Cypress.io' });
+//     await expect(anchor1).toBeVisible();
+//     const newPopupPromise = context.waitForEvent('page');
+//     await anchor1.click();
+//     const newPage = await newPopupPromise;
+//     await newPage.waitForLoadState();
+//     console.log(newPage.url());
+//     await expect(newPage).toHaveURL(/youtube\.com/);
 
-//  await newPage.close();
-//  console.log(context.pages().length);
-//  console.log('Original tab URL:', page.url());
+//  const allPages=context.pages();
+//  console.log(allPages.length);
+//  const firstTab=allPages[0];
+//  const secondTab=allPages[1];
+//  console.log(firstTab.url());
+//  console.log(secondTab.url());
 
-// await expect(page).toHaveURL(/practice\.expandtesting\.com/);
+// //  await newPage.close();
+// //  console.log(context.pages().length);
+// //  console.log('Original tab URL:', page.url());
 
-console.log('********************');
+// // await expect(page).toHaveURL(/practice\.expandtesting\.com/);
 
-const opentabs=context.pages();
-let youtubeTab;
-for(const tab of opentabs)
-{
-const title=await tab.title();
-console.log(title);
-if(title.includes('YouTube'))
-{
-    console.log('youtube tab found');
-   // console.log(tab.url());
-    youtubeTab=tab;
+// console.log('********************');
+
+// const opentabs=context.pages();
+// let youtubeTab;
+// for(const tab of opentabs)
+// {
+// const title=await tab.title();
+// console.log(title);
+// if(title.includes('YouTube'))
+// {
+//     console.log('youtube tab found');
+//    // console.log(tab.url());
+//     youtubeTab=tab;
+// }
+// else
+// {
+//     console.log('Original tab found');
+// }
+// }
+// console.log('outside of the for loop '+ youtubeTab?.url());
+// console.log(await youtubeTab?.title());
+
+// const youtubeUrl=youtubeTab?.url()
+// if(youtubeUrl?.includes('youtube.com'))
+// { 
+//     await expect(youtubeTab).toBeDefined();
+// await youtubeTab?.close();
+// }
+// else
+// {
+//     console.log('its not include');
+// }
+
+
+// await expect.poll(() => context.pages().length).toBe(1);
+
+// })
+
+
+
+// test('single file uplaod ', async ({ page }) => {
+//     await page.goto('https://practice.expandtesting.com/upload');
+//     const fileInput = page.getByTestId('file-input');
+//     await fileInput.setInputFiles('E:\\Playwright\\test-data\\sample.txt');
+//     await page.locator('#fileSubmit').click();
+//     const message1 = await page.getByRole('heading', { name: 'File Uploaded!' });
+//     await expect(message1).toBeVisible();
+//     const message2 = await page.locator('p').filter({ hasText: 'sample.txt' });
+//     await expect(message2).toContainText('sample.txt');
+//     await page.pause()
+
+
+// }
+// );
+
+// test('Multiple file Selecion/browse ', async ({ page }) => {
+//     await page.goto('https://playwrightlab.github.io/');
+//     const fileInput=page.locator('#fileInput')
+//     await page.locator('#uploadBrowseLabel').scrollIntoViewIfNeeded();
+//     await fileInput.setInputFiles(['E:\\Playwright\\test-data\\samplepdf1.pdf','E:\\Playwright\\test-data\\samplepdf2.pdf','E:\\Playwright\\test-data\\samplepdf3.pdf']);
+//     await page.pause();
+// }
+// );
+
+test('Single file Selecion and then upload ', async ({ page }) => {
+    await page.goto('https://playwrightlab.github.io/');
+    const fileInput=page.locator('#singleFileInput'); 
+    await page.locator('#singleUploadBrowseLabel').scrollIntoViewIfNeeded();
+    await fileInput.setInputFiles('E:\\Playwright\\test-data\\samplepdf1.pdf');
+    await page.locator('#singleUploadBtn').click();
+    await expect(page.getByText('Uploaded successfully!')).toBeVisible();
+await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
 }
-else
-{
-    console.log('Original tab found');
-}
-}
-console.log('outside of the for loop '+ youtubeTab?.url());
-console.log(await youtubeTab?.title());
 
-const youtubeUrl=youtubeTab?.url()
-if(youtubeUrl?.includes('youtube.com'))
-{ 
-    await expect(youtubeTab).toBeDefined();
-await youtubeTab?.close();
-}
-else
-{
-    console.log('its not include');
-}
+);
 
 
-await expect.poll(() => context.pages().length).toBe(1);
 
-})
+test('Multiple file Selecion and then upload ', async ({ page }) => {
+    await page.goto('https://playwrightlab.github.io/');
+    const fileInput=page.locator('#multiFileInput')
+    await page.locator('#multiUploadBrowseLabel').scrollIntoViewIfNeeded();
+    await fileInput.setInputFiles(['E:\\Playwright\\test-data\\samplepdf1.pdf','E:\\Playwright\\test-data\\samplepdf2.pdf','E:\\Playwright\\test-data\\samplepdf3.pdf']);
+   await page.locator('#multiUploadBtn').click();
+    await expect(page.getByText('Uploaded successfully!')).toBeVisible();
+await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
+await expect(page.getByText('samplepdf2.pdf')).toBeVisible();
+await expect(page.getByText('samplepdf3.pdf')).toBeVisible();
+}
+);
+
 
