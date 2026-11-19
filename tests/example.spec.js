@@ -927,31 +927,48 @@ import { test, expect } from '@playwright/test';
 // }
 // );
 
-test('Single file Selecion and then upload ', async ({ page }) => {
+// test('Single file Selecion and then upload ', async ({ page }) => {
+//     await page.goto('https://playwrightlab.github.io/');
+//     const fileInput=page.locator('#singleFileInput'); 
+//     await page.locator('#singleUploadBrowseLabel').scrollIntoViewIfNeeded();
+//     await fileInput.setInputFiles('E:\\Playwright\\test-data\\samplepdf1.pdf');
+//     await page.locator('#singleUploadBtn').click();
+//     await expect(page.getByText('Uploaded successfully!')).toBeVisible();
+// await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
+// }
+
+// );
+
+
+
+// test('Multiple file Selecion and then upload ', async ({ page }) => {
+//     await page.goto('https://playwrightlab.github.io/');
+//     const fileInput=page.locator('#multiFileInput')
+//     await page.locator('#multiUploadBrowseLabel').scrollIntoViewIfNeeded();
+//     await fileInput.setInputFiles(['E:\\Playwright\\test-data\\samplepdf1.pdf','E:\\Playwright\\test-data\\samplepdf2.pdf','E:\\Playwright\\test-data\\samplepdf3.pdf']);
+//    await page.locator('#multiUploadBtn').click();
+//     await expect(page.getByText('Uploaded successfully!')).toBeVisible();
+// await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
+// await expect(page.getByText('samplepdf2.pdf')).toBeVisible();
+// await expect(page.getByText('samplepdf3.pdf')).toBeVisible();
+// }
+// );
+
+
+test('Verify the download functionality', async ({ page }) => {
     await page.goto('https://playwrightlab.github.io/');
-    const fileInput=page.locator('#singleFileInput'); 
-    await page.locator('#singleUploadBrowseLabel').scrollIntoViewIfNeeded();
-    await fileInput.setInputFiles('E:\\Playwright\\test-data\\samplepdf1.pdf');
-    await page.locator('#singleUploadBtn').click();
-    await expect(page.getByText('Uploaded successfully!')).toBeVisible();
-await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
-}
-
-);
+    const downloadPDFButton = page.locator('#downloadPdfBtn');
+    await downloadPDFButton.scrollIntoViewIfNeeded();
+    const downloadPromise = page.waitForEvent('download');
+    await downloadPDFButton.click();
+    const download = await downloadPromise;
 
 
+    console.log(download.suggestedFilename());
+    await download.saveAs('E:\\Playwright\\test-data\\Playwright-Cheat-Sheet.pdf');
 
-test('Multiple file Selecion and then upload ', async ({ page }) => {
-    await page.goto('https://playwrightlab.github.io/');
-    const fileInput=page.locator('#multiFileInput')
-    await page.locator('#multiUploadBrowseLabel').scrollIntoViewIfNeeded();
-    await fileInput.setInputFiles(['E:\\Playwright\\test-data\\samplepdf1.pdf','E:\\Playwright\\test-data\\samplepdf2.pdf','E:\\Playwright\\test-data\\samplepdf3.pdf']);
-   await page.locator('#multiUploadBtn').click();
-    await expect(page.getByText('Uploaded successfully!')).toBeVisible();
-await expect(page.getByText('samplepdf1.pdf')).toBeVisible();
-await expect(page.getByText('samplepdf2.pdf')).toBeVisible();
-await expect(page.getByText('samplepdf3.pdf')).toBeVisible();
+    const fs = require('fs');
+    expect(fs.existsSync('E:\\Playwright\\test-data\\Playwright-Cheat-Sheet.pdf')).toBeTruthy();
 }
 );
-
 
